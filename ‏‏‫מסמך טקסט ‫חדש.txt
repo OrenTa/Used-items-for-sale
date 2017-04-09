@@ -1,0 +1,11 @@
+need to:
+- design the new item page in html. 
+	-> need to learn element as dropdown menu for category
+	-> need to learn element for uploading a file.
+
+upload file is here 
+http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
+
+
+
+- write the backend of this

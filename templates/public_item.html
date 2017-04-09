@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "banner.html" %}
+	
+<!-- messages section -->
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+<!--end messages section-->
+
+<a href="{{url_for('showCategoryItems',category_id=category.id)}}"><h2>{{ category.name }}</h2></a>
+
+<!-- item -->
+<div class="row	">
+	<div class="col-md-2">
+	<img src="/static/images/{{item.picture}}" alt="item picture" 
+				height="40" class="img-responsive center-block">
+	</div>
+	<div class="col-md-4">
+		<h3>{{item.name}}</h3>
+		<p class="menu-price">{{item.price}}</p>
+		<p>{{item.description}}</p>
+	</div>
+	<div class="col-md-6">
+	</div>
+</div>
+<!-- end of item -->
+
+{% endblock %}

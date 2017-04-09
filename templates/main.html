@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+{% include "banner.html" %}
+
+	<!-- message section -->
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+						{% for message in messages %}
+							 <li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+	<!--end of messages section-->
+
+	<a href="{{url_for('newItem') }}">Add item for sale </a>
+	<br>
+	<br>
+
+	<!-- last items uploaded -->
+	<div class="row">
+	{% if items !=[] %}
+		{% for i in items %}	
+			<div class="col-md-3 panel">
+				<img src="/static/images/{{i.picture}}" alt="item picture" 
+				height="40" class="last">
+				<a href="{{ url_for('showItem', category_id=i.category_id, item_id = i.id) }}"> <h3>{{i.name}}</h3> </a>
+				<p class="menu-price">{{i.price}}</p>
+				{{i.created_date.strftime('%Y-%m-%d')}}
+			</div>
+			<div class="col-md-1">
+			</div>
+		{% endfor %}
+	{% endif %}
+	</div>
+	<!-- end of items -->
+
+
+	<h2>Browse the categories</h2>
+	{% for i in categories %}	
+	<div class="row">
+		<div class="col-md-4">
+		<a href="{{url_for('showCategoryItems',category_id=i.id)}}"><p>{{i.name}}</p></a>
+		</div>
+	</div>
+	{% endfor %}
+
+	
+
+{% endblock %}
