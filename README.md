@@ -1,4 +1,4 @@
-# OAuth2.0
+# Used Items For Sale
 Starter Code for Auth&amp;Auth course
 # Installing the Vagrant VM for ud330 - Authentication & Authorization
 
