@@ -28,8 +28,10 @@
 	{% if items !=[] %}
 		{% for i in items %}	
 			<div class="col-md-3 panel">
-				<img src="/static/images/{{i.picture}}" alt="item picture" 
-				height="40" class="last">
+				<div class="crop">
+					<img src="/static/images/{{i.picture}}" alt="item picture" 
+					height="40" class="last">
+				</div>
 				<a href="{{ url_for('showItem', category_id=i.category_id, item_id = i.id) }}"> <h3>{{i.name}}</h3> </a>
 				<p class="menu-price">{{i.price}}</p>
 				{{i.created_date.strftime('%Y-%m-%d')}}
@@ -42,7 +44,7 @@
 	<!-- end of items -->
 
 
-	<h2>Browse the categories</h2>
+	<h2 class="title">Browse the categories</h2>
 	{% for i in categories %}	
 	<div class="row">
 		<div class="col-md-4">

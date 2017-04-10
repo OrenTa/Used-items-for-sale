@@ -402,7 +402,7 @@ def gconnect():
     login_session['user_id'] = user_id
 
     output = ''
-    output += '<h1>Welcome You Miserable Man !, '
+    output += '<h1>Welcome '
     output += login_session['username']
     output += '!</h1>'
     output += '<img src="'

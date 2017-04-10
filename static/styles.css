@@ -183,6 +183,17 @@ u }
 }
 
 img.last {
-	height: 140px;
+	width: 240px;
+	height: auto;
 	margin-top: 10px;
+}
+
+.crop {
+	width: 240px;
+	height: 240px;
+	overflow: hidden;
+}
+
+.title{
+	font-family: 'Bree Serif', serif;
 }
