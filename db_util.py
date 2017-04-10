@@ -12,10 +12,9 @@ session = DBSession()
 # options are:
 # sc - show categories
 # ac - add categories
-# dc - delete categories
 # si - show items (then it asks for which category)
 
-print "\n-With this utility you can:\n-sc(show categories)\n-ac(add categories) \n-dc(delete category) \
+print "\n-With this utility you can:\n-sc(show categories)\n-ac(add categories) \
         \n-si(show items)"
 
 try:
@@ -49,7 +48,7 @@ try:
                 s=s+1
         else:
             print "-I'm not familiar with this command"
-            print "\n-With this utility you can:\n-sc(show categories)\n-ac(add categories) \n-dc(delete category) \
+            print "\n-With this utility you can:\n-sc(show categories)\n-ac(add categories) \
                 \n-si(show items)"
 except:
     print "bye bye"
