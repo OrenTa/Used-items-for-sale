@@ -225,8 +225,6 @@ def allowed_file(filename):
 #-> getUserID
 
 #############################
-
-#%#%#%# -> create a new project in google - update the id in the file and in the html
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Used items for sale"
