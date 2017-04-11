@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from flask import session as login_session
 from flask import make_response
+from functools import wraps # for decorators
 
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
@@ -80,8 +81,6 @@ def showCategoryItems(category_id):
     if 'username' not in login_session:
         return render_template('public_category.html', items=items, category=category)
     else:
-        for i in items:
-            print i.picture
         return render_template('category.html', items=items, category=category)
 
 # Show a specific item
@@ -95,12 +94,21 @@ def showItem(category_id, item_id):
         return render_template('item.html', item=item, category=category)
 
 
+#login decorator function
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect(url_for('showLogin'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 # Create a new item
 @app.route('/new', methods=['GET', 'POST'])
 @app.route('/new/<int:category_id>', methods=['GET', 'POST'])
+@login_required
 def newItem(category_id=None):
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -130,7 +138,6 @@ def newItem(category_id=None):
             flash('New Menu %s Item Successfully Created' % (newItem.name))
             return redirect(url_for('showCategoryItems', category_id=category_id))
     else:
-        print "category is" + str(category_id)
         if category_id:
             categories = session.query(Category).filter_by(id=category_id).one()
             return render_template('newitem.html', categories=categories, isone=True)
@@ -138,12 +145,10 @@ def newItem(category_id=None):
             categories = session.query(Category).order_by(desc(Category.name)).all()
             return render_template('newitem.html', categories=categories, isone=False)
 
-
 # Edit an item
 @app.route('/category/<int:category_id>/item/<int:item_id>/edit', methods=['GET', 'POST'])
+@login_required #as can be seen the route decorator must be the outermost
 def editItem(category_id, item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -181,9 +186,8 @@ def editItem(category_id, item_id):
 
 # Delete an item
 @app.route('/category/<int:category_id>/item/<int:item_id>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteItem(category_id, item_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     itemToDelete = session.query(Item).filter_by(id=item_id).one()
     if request.method == 'POST':
         session.delete(itemToDelete)
